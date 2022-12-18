@@ -1,19 +1,15 @@
 part of 'radio_player_cubit.dart';
 
-
-enum PlayerState{
-  play,
-  pause,
-  stop
-}
+enum PlayerState { play, pause, stop }
 
 abstract class RadioPlayerState extends Equatable {
   final RadioStation station;
   final PlayerState playerState;
+
   const RadioPlayerState(this.station, this.playerState);
 
   @override
-  List<Object> get props => [station];
+  List<Object> get props => [station, playerState];
 }
 
 class RadioPlayerInitial extends RadioPlayerState {
@@ -21,17 +17,27 @@ class RadioPlayerInitial extends RadioPlayerState {
 }
 
 class RadioPlayerLoading extends RadioPlayerState {
-  const RadioPlayerLoading({required RadioStation station, required PlayerState state}) : super(station, state);
+  const RadioPlayerLoading(
+      {required RadioStation station, required PlayerState state})
+      : super(station, state);
 }
 
 class RadioPlayerSuccess extends RadioPlayerState {
-  const RadioPlayerSuccess({required RadioStation station, required PlayerState state}) : super(station, state);
+  final List<String> metaData;
+  const RadioPlayerSuccess(
+      {required this.metaData,
+      required RadioStation station,
+      required PlayerState state})
+      : super(station, state);
+
+  @override
+  List<Object> get props => [station, playerState, metaData];
 }
-
-
 
 class RadioPlayerError extends RadioPlayerState {
   final String error;
-  const RadioPlayerError(this.error, {required RadioStation station, required PlayerState state})
+
+  const RadioPlayerError(this.error,
+      {required RadioStation station, required PlayerState state})
       : super(station, state);
 }

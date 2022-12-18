@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,13 +56,17 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
   void _init() {
     _radioPlayer = RadioPlayer();
     _radioPlayer.stateStream.listen((event) {
-      log(event.toString());
+      final metaData = state is RadioPlayerSuccess ? (state as RadioPlayerSuccess).metaData : <String>[];
       emit(RadioPlayerSuccess(
           station: state.station,
-          state: event ? PlayerState.play : PlayerState.pause));
+          state: event ? PlayerState.play : PlayerState.pause, metaData:metaData ));
     });
     _radioPlayer.metadataStream.listen((event) {
       log(event.toString());
+      _radioPlayer.getArtworkImage();
+      emit(RadioPlayerSuccess(
+          station: state.station,
+          state: state.playerState, metaData: event));
     });
   }
 }

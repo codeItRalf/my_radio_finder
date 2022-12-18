@@ -7,6 +7,8 @@ import 'package:my_radio_finder/util/constants.dart';
 import 'package:my_radio_finder/widget/my_cached_image.dart';
 import 'package:text_scroll/text_scroll.dart';
 
+import '../../widget/meta_text.dart';
+
 class PageStation extends StatelessWidget {
   const PageStation({super.key, required this.station});
 
@@ -33,6 +35,14 @@ class PageStation extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+                if (station.tags.isNotEmpty)
+                  TextScroll(
+                    station.tags,
+                  ),
+                if (station.homepage.isNotEmpty) Text(station.homepage),
+                MetaText(
+                  station: station,
+                ),
                 PlayPauseButton(
                   station: station,
                 )
@@ -49,4 +59,3 @@ class PageStation extends StatelessWidget {
     );
   }
 }
-
