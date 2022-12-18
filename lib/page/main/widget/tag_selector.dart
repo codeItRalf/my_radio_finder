@@ -16,11 +16,10 @@ class TagSelector extends StatefulWidget {
 }
 
 class _TagSelectorState extends State<TagSelector> {
-
   late StationsCubit _cubit;
 
   final tags = [
-     defaultTag,
+    defaultTag,
     '80s',
     'rock',
     'pop',
@@ -45,16 +44,19 @@ class _TagSelectorState extends State<TagSelector> {
     return SizedBox(
       height: kToolbarHeight,
       child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: contentPadding),
+        padding: const EdgeInsets.symmetric(vertical: contentPadding)
+            .copyWith(left: contentPadding),
         scrollDirection: Axis.horizontal,
         children: tags
-            .map((e) =>
-                Padding(
+            .map((e) => Padding(
                   padding: const EdgeInsets.only(right: contentPadding / 2),
                   child: OutlinedButton(
-                      onPressed: tag == e ? null : () {
-                        _cubit.fetchStations(tag: e);
-                      }, child: Text(e.capitalize())),
+                      onPressed: tag == e
+                          ? null
+                          : () {
+                              _cubit.fetchStations(tag: e);
+                            },
+                      child: Text(e.capitalize())),
                 ))
             .toList(),
       ),

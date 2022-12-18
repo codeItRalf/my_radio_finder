@@ -20,6 +20,7 @@ class RadioRepository {
     final queryParams = {
       'limit': limit,
       'offset': offset,
+      'hidebroken': true
     };
 
     try {
