@@ -44,22 +44,24 @@ class _TagSelectorState extends State<TagSelector> {
   @override
   Widget build(BuildContext context) {
     final tag = context.watch<StationsCubit>().state.tag;
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: contentPadding)
-          .copyWith(left: contentPadding),
-      scrollDirection: Axis.horizontal,
-      children: tags
-          .map((e) => Padding(
-                padding: const EdgeInsets.only(right: contentPadding / 2),
-                child: ElevatedButton(
-                    onPressed: tag == e
-                        ? null
-                        : () {
-                            _cubit.fetchStations(tag: e);
-                          },
-                    child: Text(e.capitalize())),
-              ))
-          .toList(),
+    return Card(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: contentPadding)
+            .copyWith(left: contentPadding),
+        scrollDirection: Axis.horizontal,
+        children: tags
+            .map((e) => Padding(
+                  padding: const EdgeInsets.only(right: contentPadding / 2),
+                  child: ElevatedButton(
+                      onPressed: tag == e
+                          ? null
+                          : () {
+                              _cubit.fetchStations(tag: e);
+                            },
+                      child: Text(e.capitalize())),
+                ))
+            .toList(),
+      ),
     );
   }
 }

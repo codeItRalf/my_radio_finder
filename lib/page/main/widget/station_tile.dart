@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_radio_finder/route_name.dart';
 import 'package:my_radio_finder/util/constants.dart';
 import 'package:text_scroll/text_scroll.dart';
-
 import '../../../model/radio_station.dart';
 import '../../../widget/my_cached_image.dart';
-import '../../../widget/placeholder_no_image.dart';
 
 class StationTile extends StatelessWidget {
   const StationTile({
@@ -18,7 +15,6 @@ class StationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stationName = station.name.isEmpty ? 'Unnamed Station' : station.name;
     return Card(
       clipBehavior: Clip.hardEdge,
       child: ListTile(
@@ -36,7 +32,7 @@ class StationTile extends StatelessWidget {
         subtitle: IgnorePointer(child: TextScroll(station.tags)),
         title: Row(
           children: [
-            Expanded(child: IgnorePointer(child: TextScroll(stationName,selectable: false ))),
+            Expanded(child: IgnorePointer(child: TextScroll(station.getName,selectable: false ))),
             Text('${station.bitrate}k')
           ],
         ),

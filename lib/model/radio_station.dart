@@ -33,6 +33,8 @@ class RadioStation extends Equatable {
   final int sslError;
   final bool hasExtendedInfo;
 
+  String get getName =>  name.isEmpty ? 'Unnamed Station' : name;
+
   const RadioStation(
       {required this.changeUuid,
       required this.stationUuid,
