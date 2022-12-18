@@ -43,9 +43,10 @@ class _PageMainState extends State<PageMain> {
         },
         builder: (context, state) {
           return Scaffold(
+            extendBody: true,
+            appBar: const TagSelector(),
             body: Column(
               children: [
-                const TagSelector(),
                 Expanded(
                     child: ListView.builder(
                         controller: _controller

@@ -1,8 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_radio_finder/route_name.dart';
+import 'package:my_radio_finder/util/constants.dart';
+import 'package:text_scroll/text_scroll.dart';
 
-import '../../../cubit/radio_player_cubit.dart';
 import '../../../model/radio_station.dart';
+import '../../../widget/my_cached_image.dart';
+import '../../../widget/placeholder_no_image.dart';
 
 class StationTile extends StatelessWidget {
   const StationTile({
@@ -19,11 +23,26 @@ class StationTile extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: ListTile(
         onTap: () {
-          context.read<RadioPlayerCubit>().play(station: station);
+          Navigator.pushNamed(context, RouteName.station, arguments: station);
         },
-        subtitle: Text(station.tags),
-        title: Text(stationName),
+        leading: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(contentPadding)
+          ),
+            height: 56,
+            width: 56,
+            child: MyCachedImage(url: station.favicon)),
+        subtitle: IgnorePointer(child: TextScroll(station.tags)),
+        title: Row(
+          children: [
+            Expanded(child: IgnorePointer(child: TextScroll(stationName,selectable: false ))),
+            Text('${station.bitrate}k')
+          ],
+        ),
       ),
     );
   }
 }
+
+

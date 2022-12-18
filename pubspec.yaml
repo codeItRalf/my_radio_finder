@@ -37,7 +37,8 @@ dependencies:
   equatable: ^2.0.5
   text_scroll: ^0.1.1
   cached_network_image: ^3.2.3
-#  flutter_radio_player: ^2.0.0
+  radio_player: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:

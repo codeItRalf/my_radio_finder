@@ -23,7 +23,6 @@ class StationsCubit extends Cubit<StationsState> {
     if (isBusy || state.endReached) return;
     isBusy = true;
     if (tag != state.tag) {
-      log('clearing state!');
       emit(const StationsInitial());
     }
     emit(StationsLoading(stations: state.stations, tag: tag));
