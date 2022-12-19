@@ -1,16 +1,6 @@
 # my_radio_finder
 
-A new Flutter project.
+a simple radio app, not a mona lisa, I wanted to try to do a simple but cool radio app within 8 hours but had to give up at 10 hours.
+Works but very simple.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+using the free radio api https://api.radio-browser.info/ 
