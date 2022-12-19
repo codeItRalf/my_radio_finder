@@ -4,7 +4,6 @@ import 'package:my_radio_finder/cubit/radio_player_cubit.dart';
 import 'package:my_radio_finder/model/radio_station.dart';
 import 'package:my_radio_finder/util/constants.dart';
 import 'package:my_radio_finder/widget/my_cached_image.dart';
-import 'package:radio_player/radio_player.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 import '../../widget/meta_text.dart';
