@@ -24,8 +24,11 @@ class RadioPlayerLoading extends RadioPlayerState {
 
 class RadioPlayerSuccess extends RadioPlayerState {
   final List<String> metaData;
+  final ImageProvider? imageProvider;
+
   const RadioPlayerSuccess(
-      {required this.metaData,
+      {this.imageProvider,
+        required this.metaData,
       required RadioStation station,
       required PlayerState state})
       : super(station, state);
@@ -36,7 +39,6 @@ class RadioPlayerSuccess extends RadioPlayerState {
 
 class RadioPlayerError extends RadioPlayerState {
   final String error;
-
   const RadioPlayerError(this.error,
       {required RadioStation station, required PlayerState state})
       : super(station, state);

@@ -31,9 +31,9 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
     );
 
     _myAnimation = CurvedAnimation(curve: Curves.linear, parent: _controller);
-    if (state is RadioPlayerSuccess &&
-        state.playerState == PlayerState.play &&
-        _playerCubit.state.station == widget.station) {
+    if ( _playerCubit.state.station == widget.station &&
+        state is RadioPlayerSuccess &&
+        state.playerState == PlayerState.play) {
       _controller.value = _controller.upperBound;
     }
 
@@ -54,14 +54,13 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
       },
       builder: (context, state) {
         final isLoading = state is RadioPlayerLoading;
-        final isPlaying = state is RadioPlayerSuccess &&
+        final isPlaying = state.station == widget.station &&
+            state is RadioPlayerSuccess &&
             state.playerState == PlayerState.play;
 
         return InkWell(
           onTap: () {
-            if (isLoading) {
-              _playerCubit.stop();
-            } else if (isPlaying && state.station == widget.station) {
+            if (isLoading || isPlaying) {
               _playerCubit.pause();
             } else {
               _playerCubit.play(station: widget.station);
