@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_radio_finder/route_name.dart';
 import 'package:my_radio_finder/util/constants.dart';
 import 'package:my_radio_finder/widget/meta_text.dart';
+import 'package:my_radio_finder/widget/play_pause_button.dart';
 import 'package:text_scroll/text_scroll.dart';
 import '../../../model/radio_station.dart';
 import '../../../widget/my_cached_image.dart';
@@ -29,7 +30,12 @@ class StationTile extends StatelessWidget {
           ),
             height: 56,
             width: 56,
-            child: MyCachedImage(url: station.favicon)),
+            child: Stack(children: [
+              MyCachedImage(url: station.favicon),
+              Align(
+                  alignment: Alignment.center,
+                  child: PlayPauseButton(station: station))
+            ])),
         subtitle: IgnorePointer(child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,

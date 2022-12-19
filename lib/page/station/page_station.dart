@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_radio_finder/cubit/radio_player_cubit.dart';
 import 'package:my_radio_finder/model/radio_station.dart';
-import 'package:my_radio_finder/page/station/widget/play_pause_button.dart';
 import 'package:my_radio_finder/util/constants.dart';
 import 'package:my_radio_finder/widget/my_cached_image.dart';
 import 'package:radio_player/radio_player.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 import '../../widget/meta_text.dart';
+import '../../widget/play_pause_button.dart';
 
 class PageStation extends StatelessWidget {
   const PageStation({super.key, required this.station});
@@ -44,9 +44,7 @@ class PageStation extends StatelessWidget {
                 MetaText(
                   station: station,
                 ),
-                PlayPauseButton(
-                  station: station,
-                )
+                PlayPauseElevatedButton(station: station)
               ]
                   .map((e) => Padding(
                         padding: const EdgeInsets.only(bottom: contentPadding),
@@ -56,6 +54,37 @@ class PageStation extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class PlayPauseElevatedButton extends StatelessWidget {
+  const PlayPauseElevatedButton({
+    Key? key,
+    required this.station,
+  }) : super(key: key);
+
+  final RadioStation station;
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.watch<RadioPlayerCubit>();
+    final isPlaying = cubit.state.station == station && cubit.state.playerState == PlayerState.play;
+    final theme = Theme.of(context);
+    return SizedBox(
+      height: 150,
+      width: 150,
+      child: Card(
+        color: isPlaying ? theme.colorScheme.secondary : theme.colorScheme.primary,
+        elevation: isPlaying ? 0.0 : 1.0,
+        clipBehavior: Clip.hardEdge,
+        shape: const CircleBorder(),
+        child: PlayPauseButton(
+          color: isPlaying ? Colors.white70 : Colors.white,
+          size: 100,
+          station: station,
+        ),
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_radio_finder/controller/animated_list_controller.dart';
 import 'package:my_radio_finder/cubit/radio_player_cubit.dart';
 import 'package:my_radio_finder/page/main/cubit/stations_cubit.dart';
 import 'package:my_radio_finder/page/main/widget/bottom_player.dart';
@@ -16,13 +19,17 @@ class PageMain extends StatefulWidget {
 }
 
 class _PageMainState extends State<PageMain> {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   late StationsCubit _stationsCubit;
   late ScrollController _controller;
+  late AnimatedListController _animatedListController;
+
   @override
   void initState() {
     _controller = ScrollController();
     _stationsCubit = context.read<StationsCubit>();
     _stationsCubit.fetchStations(tag: defaultTag);
+    _animatedListController = AnimatedListController(listKey: listKey);
     super.initState();
   }
 
@@ -37,7 +44,15 @@ class _PageMainState extends State<PageMain> {
     return SafeArea(
       child: BlocConsumer<StationsCubit, StationsState>(
         listener: (context, state) {
-          // TODO: implement listener
+
+         if(state is StationsInitial){
+           _animatedListController.clearAnimatedList();
+         }else if(state is StationsSuccess){
+           _animatedListController.populateAnimatedList(state.stations.length);
+         }
+         if(state.endReached){
+         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No more radios stations :(')));
+         }
         },
         builder: (context, state) {
           return Scaffold(
@@ -50,7 +65,9 @@ class _PageMainState extends State<PageMain> {
                 Column(
                   children: [
                     Expanded(
-                        child: ListView.builder(
+                        child: AnimatedList(
+                          padding: const EdgeInsets.only(top: kToolbarHeight),
+                          key: listKey,
                             controller: _controller
                               ..addListener(() {
                                 if (state is! StationsLoading) {
@@ -61,18 +78,25 @@ class _PageMainState extends State<PageMain> {
                                   }
                                 }
                               }),
-                            itemCount: state.stations.length,
-                            itemBuilder: (context, index) =>
-                                ListItem(
-                                  station: state.stations[index],
+                            itemBuilder: (context, index, animation) =>
+                                SlideTransition(
+                                  position: animation.drive(Tween<Offset>(
+                                          begin: const Offset(1, 0),
+                                          end: Offset.zero)
+                                      .chain(CurveTween(curve: Curves.easeIn))),
+                                  child: ListItem(
+                                    station: state.stations[index],
+                                  ),
                                 ))),
                   ],
                 ),
-                if(state is StationsLoading)
-                Align(
-                  alignment: state.stations.isEmpty ? Alignment.center :  Alignment.bottomCenter,
-                  child: const CircularProgressIndicator(),
-                )
+                if (state is StationsLoading)
+                  Align(
+                    alignment: state.stations.isEmpty
+                        ? Alignment.center
+                        : Alignment.bottomCenter,
+                    child: const CircularProgressIndicator(),
+                  )
               ],
             ),
             bottomNavigationBar: const BottomPlayer(),
@@ -82,4 +106,3 @@ class _PageMainState extends State<PageMain> {
     );
   }
 }
-
