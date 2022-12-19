@@ -67,7 +67,6 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
       Image? image;
       try{
         image = await _radioPlayer.getArtworkImage();
-        log('image is null : ${image == null}');
       }catch(error){
         log('getArtworkImage exception ${error.toString()}');
       }
