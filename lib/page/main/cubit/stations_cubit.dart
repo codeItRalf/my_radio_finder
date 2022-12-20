@@ -20,7 +20,7 @@ class StationsCubit extends Cubit<StationsState> {
   bool isBusy = false;
 
   Future<void> fetchStations({required String tag}) async {
-    if (isBusy || state.endReached) return;
+    if (isBusy || (state.endReached && tag == state.tag)) return;
     isBusy = true;
     if (tag != state.tag) {
       emit(const StationsInitial());
