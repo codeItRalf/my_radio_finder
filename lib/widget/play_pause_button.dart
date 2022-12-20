@@ -42,6 +42,14 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
     super.initState();
   }
 
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RadioPlayerCubit, RadioPlayerState>(
