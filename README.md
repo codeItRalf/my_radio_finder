@@ -5,7 +5,7 @@ Works but very simple.
 
 Will continue to fix small bugs and other anoying things.
 
-For latest fat APK (Android)  [Download](https://drive.google.com/file/d/1mK242-aEcu0clztejyNcDBV77C18_D7t/view?usp=sharing).
+For latest fat APK (Android)  [Download](https://drive.google.com/file/d/1mK242-aEcu0clztejyNcDBV77C18_D7t/view?usp=sharing).  
 Have a look how it works on  [Youtube](https://youtube.com/shorts/zuLtKCJfPAg?feature=share). 
 
 Using flutter plugins:  
